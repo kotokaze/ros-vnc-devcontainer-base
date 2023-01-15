@@ -71,8 +71,6 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@v3
         with:
-          context: .
-          file: ros${{ matrix.ros_version }}-${{ matrix.ros_distro }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           build-args: |
             ROS_VERSION=${{ matrix.ros_version }}
