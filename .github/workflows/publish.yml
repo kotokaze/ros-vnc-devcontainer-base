@@ -16,9 +16,6 @@ jobs:
         ros_distro: [foxy, humble]
         ros_version: [2]
 
-    env:
-      LATEST_DISTRO: humble
-
     permissions:
       contents: read
       # packages: write
@@ -54,8 +51,8 @@ jobs:
         with:
           images: ${{ github.repository }}
           flavor: |
-            prefix=ros${{ matrix.ros_version }}-${{ matrix.ros_distro }},onlatest=true
-            latest=${{ matrix.ros_distro == env.LATEST_DISTRO }}
+            prefix=ros${{ matrix.ros_version }}-${{ matrix.ros_distro }}
+            latest=${{ matrix.ros_distro == vars.LATEST_DISTRO }}
           tags: |
             type=semver,pattern=v{{version}}
             type=semver,pattern=v{{major}}.{{minor}}
