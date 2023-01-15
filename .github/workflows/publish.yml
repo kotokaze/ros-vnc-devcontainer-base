@@ -54,8 +54,8 @@ jobs:
         with:
           images: ${{ github.repository }}
           flavor: |
-            prefix=ros${{ matrix.ros_version }}-${{ matrix.ros_distro }}
-            latest=${{ matrix.ros_distro == env.LATEST_DISTRO && github.event_name != 'pull_request' }}
+            prefix=ros${{ matrix.ros_version }}-${{ matrix.ros_distro }},onlatest=true
+            latest=${{ matrix.ros_distro == env.LATEST_DISTRO }}
           tags: |
             type=semver,pattern=v{{version}}
             type=semver,pattern=v{{major}}.{{minor}}
