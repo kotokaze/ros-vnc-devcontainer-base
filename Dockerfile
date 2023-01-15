@@ -1,4 +1,7 @@
-FROM tiryoh/ros2-desktop-vnc:foxy
+ARG ROS_VERSION=2
+ARG ROS_DISTRO=foxy
+
+FROM tiryoh/ros${ROS_VERSION}-desktop-vnc:${ROS_DISTRO}
 LABEL maintainer="kotokaze"
 
 # Enable ros-cd command

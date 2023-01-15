@@ -13,8 +13,11 @@ jobs:
 
     strategy:
       matrix:
-        ROS_DISTRO: [foxy]
-        ROS_VERSION: [2]
+        ros_distro: [foxy]
+        ros_version: [2]
+
+    env:
+      LATEST_DISTRO: foxy
 
     permissions:
       contents: read
@@ -50,8 +53,9 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ github.repository }}
-          flaver: |
-            prefix=ros${{ matrix.ros_version }}-${{ matrix.ros_distro }},onlatest=true
+          flavor: |
+            prefix=ros${{ matrix.ros_version }}-${{ matrix.ros_distro }}
+            latest=${{ matrix.ros_distro == env.LATEST_DISTRO && github.event_name != 'pull_request' }}
           tags: |
             type=semver,pattern=v{{version}}
             type=semver,pattern=v{{major}}.{{minor}}
@@ -71,6 +75,8 @@ jobs:
           file: ros${{ matrix.ros_version }}-${{ matrix.ros_distro }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           build-args: |
+            ROS_VERSION=${{ matrix.ros_version }}
+            ROS_DISTRO=${{ matrix.ros_distro }}
             INSTALL_ZSH="false"
             UPGRADE_PACKAGES="true"
             USERNAME=ubuntu
