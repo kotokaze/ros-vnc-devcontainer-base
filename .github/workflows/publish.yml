@@ -13,11 +13,11 @@ jobs:
 
     strategy:
       matrix:
-        ros_distro: [foxy]
+        ros_distro: [foxy, humble]
         ros_version: [2]
 
     env:
-      LATEST_DISTRO: foxy
+      LATEST_DISTRO: humble
 
     permissions:
       contents: read
